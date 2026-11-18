@@ -10,6 +10,7 @@ files:
   - '!{.env,.env.*,.npmrc,pnpm-lock.yaml}'
 asarUnpack:
   - resources/**
+  - node_modules/youtube-dl-exec/bin/**
 win:
   executableName: yt-convert
 nsis:
@@ -30,10 +31,13 @@ dmg:
 linux:
   target:
     - AppImage
-    - snap
     - deb
-  maintainer: electronjs.org
-  category: Utility
+  category: AudioVideo
+  maintainer: Mew <theera.tsuki@gmail.com>
+deb:
+  recommends:
+    - ffmpeg
+    - python3
 appImage:
   artifactName: ${name}-${version}.${ext}
 npmRebuild: false

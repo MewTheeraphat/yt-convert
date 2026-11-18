@@ -1,42 +1,87 @@
 <!doctype html>
-<html>
+<html lang="th">
   <head>
     <meta charset="UTF-8" />
-    <title>Electron</title>
-    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <title>yt-convert</title>
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://i.ytimg.com https://*.ytimg.com"
     />
-
-    <link href="./assets/main.css" type="text/css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./assets/app.css" />
   </head>
-
   <body>
-    <div id="app">
-      <img alt="logo" class="logo" src="./assets/electron.svg" />
-      <div class="creator">Powered by electron-vite</div>
-      <div class="text">
-        Build an Electron app with
-        <span class="js">JavaScript</span>
-      </div>
-      <p class="tip">Please try pressing <code>F12</code> to open the devTool</p>
-      <div class="actions">
-        <div class="action">
-          <a href="https://electron-vite.org/" target="_blank" rel="noreferrer">Documentation</a>
-        </div>
-        <div class="action">
-          <a id="ipcHandler" target="_blank" rel="noreferrer">Send IPC</a>
-        </div>
-      </div>
+    <main class="app">
+      <header class="head">
+        <h1>yt-convert</h1>
+        <p class="sub">วางลิงก์ YouTube แล้วเลือกรูปแบบที่ต้องการ</p>
+      </header>
 
-      <ul class="versions">
-        <li class="electron-version"></li>
-        <li class="chrome-version"></li>
-        <li class="node-version"></li>
-      </ul>
-    </div>
+      <div id="deps" class="banner banner-warn" hidden role="alert"></div>
 
+      <section class="card">
+        <label for="url" class="label">ลิงก์ YouTube</label>
+        <div class="row">
+          <input
+            id="url"
+            type="text"
+            placeholder="https://www.youtube.com/watch?v=..."
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <button id="btn-clear" class="btn btn-ghost" type="button" hidden>ล้าง</button>
+        </div>
+        <p id="url-status" class="hint" aria-live="polite"></p>
+      </section>
+
+      <section id="preview" class="card preview" hidden>
+        <img id="thumb" alt="" />
+        <div class="meta">
+          <h2 id="title"></h2>
+          <p id="uploader" class="hint"></p>
+          <p id="duration" class="hint"></p>
+        </div>
+      </section>
+
+      <section id="options" class="card" hidden>
+        <div class="seg" role="tablist" aria-label="ประเภทไฟล์">
+          <button id="tab-video" class="seg-btn" role="tab" type="button" data-type="video">
+            วิดีโอ (MP4)
+          </button>
+          <button id="tab-audio" class="seg-btn" role="tab" type="button" data-type="audio">
+            เสียง (MP3)
+          </button>
+        </div>
+
+        <p class="label">คุณภาพ</p>
+        <div id="chips" class="chips" role="group" aria-label="คุณภาพ"></div>
+        <p id="quality-hint" class="hint"></p>
+
+        <button id="btn-convert" class="btn btn-primary" type="button" disabled>Convert</button>
+      </section>
+
+      <section id="progress" class="card" hidden>
+        <div class="row between">
+          <span id="phase" aria-live="polite"></span>
+          <span id="percent"></span>
+        </div>
+        <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div id="bar-fill" class="bar-fill"></div>
+        </div>
+        <div class="row between">
+          <span id="speed" class="hint"></span>
+          <button id="btn-cancel" class="btn btn-ghost" type="button">ยกเลิก</button>
+        </div>
+      </section>
+
+      <section id="result" class="card" hidden aria-live="polite">
+        <p id="result-msg"></p>
+        <div class="row" id="result-actions" hidden>
+          <button id="btn-show" class="btn btn-primary" type="button">แสดงไฟล์ในโฟลเดอร์</button>
+          <button id="btn-open-dl" class="btn btn-ghost" type="button">เปิดโฟลเดอร์ Downloads</button>
+        </div>
+      </section>
+    </main>
     <script type="module" src="./src/renderer.js"></script>
   </body>
 </html>

@@ -1,0 +1,248 @@
+:root {
+  --bg: #0f1115;
+  --card: #181b22;
+  --line: #2a2f3a;
+  --text: #e8eaf0;
+  --muted: #8b93a5;
+  --accent: #ff4d4f;
+  --accent-text: #fff;
+  --ok: #3ecf8e;
+  --warn: #f5a524;
+  --radius: 12px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, 'Noto Sans Thai', 'Segoe UI', sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.app {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 24px 20px 40px;
+  display: grid;
+  gap: 14px;
+}
+
+.head h1 {
+  margin: 0;
+  font-size: 24px;
+  letter-spacing: -0.01em;
+}
+.sub {
+  margin: 2px 0 0;
+  color: var(--muted);
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.label {
+  margin: 0 0 8px;
+  font-weight: 600;
+  display: block;
+}
+.hint {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  min-height: 1em;
+}
+.hint.err {
+  color: var(--accent);
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.row.between {
+  justify-content: space-between;
+}
+
+input[type='text'] {
+  flex: 1;
+  min-width: 0;
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font: inherit;
+}
+input[type='text']:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.btn {
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--text);
+  border-radius: 8px;
+  padding: 9px 14px;
+  font: inherit;
+  cursor: pointer;
+}
+.btn:hover:not(:disabled) {
+  border-color: var(--muted);
+}
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-text);
+  font-weight: 600;
+}
+.btn-primary:hover:not(:disabled) {
+  filter: brightness(1.08);
+  border-color: var(--accent);
+}
+.btn-ghost {
+  color: var(--muted);
+}
+#btn-convert {
+  width: 100%;
+  margin-top: 14px;
+  padding: 12px;
+}
+
+.preview {
+  display: flex;
+  gap: 14px;
+}
+.preview img {
+  width: 160px;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 8px;
+  background: var(--bg);
+  flex-shrink: 0;
+}
+.meta {
+  min-width: 0;
+}
+.meta h2 {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.seg {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 3px;
+  margin-bottom: 14px;
+}
+.seg-btn {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  padding: 8px;
+  border-radius: 8px;
+  font: inherit;
+  cursor: pointer;
+}
+.seg-btn[aria-selected='true'] {
+  background: var(--card);
+  color: var(--text);
+  font-weight: 600;
+  box-shadow: 0 0 0 1px var(--line);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.chip {
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 7px 14px;
+  font: inherit;
+  cursor: pointer;
+}
+.chip[aria-pressed='true'] {
+  border-color: var(--accent);
+  background: rgba(255, 77, 79, 0.14);
+  font-weight: 600;
+}
+.chip:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.bar {
+  height: 8px;
+  background: var(--bg);
+  border-radius: 999px;
+  overflow: hidden;
+  margin: 10px 0;
+}
+.bar-fill {
+  height: 100%;
+  width: 0;
+  background: var(--accent);
+  transition: width 0.2s ease;
+}
+
+.banner {
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  border: 1px solid var(--warn);
+  background: rgba(245, 165, 36, 0.1);
+  font-size: 14px;
+}
+
+#result-msg {
+  margin: 0 0 10px;
+  word-break: break-word;
+}
+#result-msg.ok {
+  color: var(--ok);
+}
+#result-msg.err {
+  color: var(--accent);
+}
+#result-msg:only-child {
+  margin: 0;
+}
+
+@media (max-width: 520px) {
+  .preview {
+    flex-direction: column;
+  }
+  .preview img {
+    width: 100%;
+  }
+}
