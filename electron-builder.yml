@@ -33,7 +33,7 @@ linux:
     - AppImage
     - deb
   category: AudioVideo
-  maintainer: Mew <theera.tsuki@gmail.com>
+  maintainer: Your Name <example@gmail.com>
 deb:
   recommends:
     - ffmpeg
